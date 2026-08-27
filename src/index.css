@@ -1,0 +1,156 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/sora";
+@import "@fontsource/geist-mono/400.css";
+@import "@fontsource/geist-mono/500.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Paper — warm off-white, editorial */
+    --background: 40 30% 98%;
+    --foreground: 24 10% 12%;
+    --card: 40 33% 99%;
+    --card-foreground: 24 10% 12%;
+    --primary: 24 10% 12%;
+    --primary-foreground: 40 30% 98%;
+    --secondary: 36 16% 94%;
+    --secondary-foreground: 24 10% 20%;
+    --muted: 36 16% 94%;
+    --muted-foreground: 28 6% 42%;
+    --accent: 35 92% 48%;
+    --accent-foreground: 40 30% 98%;
+    --border: 32 14% 88%;
+    --input: 32 14% 86%;
+    --ring: 35 92% 48%;
+    --radius: 0.75rem;
+    --grid-line: 28 12% 88%;
+  }
+
+  .dark {
+    /* Ink — near-black warm charcoal */
+    --background: 24 8% 6%;
+    --foreground: 40 18% 92%;
+    --card: 24 8% 9%;
+    --card-foreground: 40 18% 92%;
+    --primary: 40 18% 92%;
+    --primary-foreground: 24 8% 6%;
+    --secondary: 26 7% 14%;
+    --secondary-foreground: 40 18% 90%;
+    --muted: 26 7% 13%;
+    --muted-foreground: 33 8% 60%;
+    --accent: 38 96% 56%;
+    --accent-foreground: 24 8% 6%;
+    --border: 30 7% 17%;
+    --input: 30 7% 20%;
+    --ring: 38 96% 56%;
+    --grid-line: 30 8% 14%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    font-optical-sizing: auto;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv05", "ss03";
+    letter-spacing: -0.011em;
+  }
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+  .font-display {
+    letter-spacing: -0.02em;
+  }
+  ::selection {
+    background: hsl(var(--accent) / 0.22);
+  }
+}
+
+@layer utilities {
+  /* Faint ruled-grid backdrop */
+  /* Sightglass's brand accent — Tanzanite, matched to the app's scheme of the
+     same name. Two values because one lightness cannot serve both grounds:
+     the dark-mode value sits near 3:1 on white, too low for the small
+     numerals and labels this drives. */
+  .theme-sightglass {
+    --accent: 252 74% 50%;
+    --ring: 252 74% 50%;
+  }
+  .dark .theme-sightglass {
+    --accent: 252 88% 72%;
+    --ring: 252 88% 72%;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--grid-line) / 0.6) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-line) / 0.6) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .text-accent {
+    color: hsl(var(--accent));
+  }
+  .accent-underline {
+    background-image: linear-gradient(hsl(var(--accent)), hsl(var(--accent)));
+    background-size: 100% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease;
+  }
+  .accent-underline:hover {
+    background-size: 0% 1.5px;
+  }
+  /* Radial mask for ambient glows */
+  .mask-radial {
+    -webkit-mask-image: radial-gradient(closest-side, black, transparent);
+    mask-image: radial-gradient(closest-side, black, transparent);
+  }
+  /* Serif display — matches the app's premium (New York) headline face. */
+  .font-serif {
+    font-family: "New York", ui-serif, Georgia, "Times New Roman", serif;
+    letter-spacing: -0.015em;
+  }
+  /* Frosted glass surface — mirrors the app's glassmorphism skins. */
+  .glass {
+    background-color: hsl(var(--card) / 0.6);
+    -webkit-backdrop-filter: blur(18px) saturate(1.35);
+    backdrop-filter: blur(18px) saturate(1.35);
+    border: 1px solid hsl(var(--border) / 0.7);
+  }
+  /* Premium layered shadow + accent halo. */
+  .premium-shadow {
+    box-shadow:
+      0 1px 2px 0 hsl(24 10% 6% / 0.06),
+      0 30px 60px -32px hsl(var(--accent) / 0.35);
+  }
+  .accent-glow {
+    box-shadow: 0 0 0 1px hsl(var(--accent) / 0.18), 0 24px 70px -34px hsl(var(--accent) / 0.6);
+  }
+  /* Barely-there film grain for a printed, luxe texture. */
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

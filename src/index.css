@@ -135,6 +135,41 @@
   .accent-glow {
     box-shadow: 0 0 0 1px hsl(var(--accent) / 0.18), 0 24px 70px -34px hsl(var(--accent) / 0.6);
   }
+  /* Stripe-style gradient accents for the premium light site. */
+  .text-gradient {
+    background-image: linear-gradient(
+      100deg,
+      hsl(252 84% 56%),
+      hsl(280 82% 60%),
+      hsl(212 90% 52%)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .gradient-mesh {
+    background-image:
+      radial-gradient(58% 55% at 16% 8%, hsl(252 92% 72% / 0.22), transparent 62%),
+      radial-gradient(46% 48% at 88% 16%, hsl(210 96% 66% / 0.18), transparent 60%),
+      radial-gradient(54% 54% at 64% 98%, hsl(286 86% 72% / 0.16), transparent 60%);
+  }
+  .bg-brand-gradient {
+    background-image: linear-gradient(
+      120deg,
+      hsl(252 82% 56%),
+      hsl(268 80% 56%),
+      hsl(212 88% 52%)
+    );
+  }
+  .card-hover {
+    transition:
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+  }
   /* Barely-there film grain for a printed, luxe texture. */
   .grain::before {
     content: "";

@@ -27,7 +27,7 @@ export const product = {
 /** The claim the whole product rests on, said plainly. */
 export const premise = [
   "Time-tracking apps know what you opened. Focus apps know when you sat down. Neither knows both, because the honest version has to run on your machine — and almost nothing does.",
-  "Sightglass reads your browser history, app usage and calendar locally, keeps them in one SQLite file you own, and derives every number from that. No account, no upload, no telemetry. Unplug the network and it still works.",
+  "Sightglass reads your browser history, app usage and calendar locally, keeps them in one place you own, and works out every number from that. No account, no upload, no tracking. Unplug the network and it still works.",
 ];
 
 export interface Screen {
@@ -94,9 +94,9 @@ export const screens: Screen[] = [
   },
   {
     name: "Settings & Data",
-    blurb: "It is your database",
+    blurb: "Your data, your rules",
     detail:
-      "Export anything as CSV, JSON, Markdown or HTML. Exclude domains so they are never stored at all, set a retention window, back up or restore the database, or delete the lot.",
+      "Export anything you see, exclude sites so they're never stored at all, choose how long to keep things, back up or restore everything, or delete the lot.",
   },
 ];
 
@@ -137,9 +137,9 @@ export const metrics: Metric[] = [
 /** What is genuinely on-device, and what is opt-in. Stated as a boundary. */
 export const privacy = {
   local: [
-    "Browser history, app usage, focus sessions and calendar events live in one SQLite file in your Application Support folder.",
-    "Every score, chart and insight is computed on your machine from that file.",
-    "No account. No sign-up. No analytics, crash reporting or telemetry of any kind.",
+    "Browser history, app usage, focus sessions and calendar events all stay on your Mac, in one place you control.",
+    "Every score, chart and insight is computed right there on your device.",
+    "No account. No sign-up. No analytics, crash reporting or tracking of any kind.",
     "Works fully offline — the network is only ever touched by the things listed opposite.",
   ],
   outbound: [

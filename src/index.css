@@ -9,183 +9,321 @@
 
 @layer base {
   :root {
-    /* Paper — warm off-white, editorial */
-    --background: 40 30% 98%;
-    --foreground: 24 10% 12%;
-    --card: 40 33% 99%;
-    --card-foreground: 24 10% 12%;
-    --primary: 24 10% 12%;
-    --primary-foreground: 40 30% 98%;
-    --secondary: 36 16% 94%;
-    --secondary-foreground: 24 10% 20%;
-    --muted: 36 16% 94%;
-    --muted-foreground: 28 6% 42%;
-    --accent: 35 92% 48%;
-    --accent-foreground: 40 30% 98%;
-    --border: 32 14% 88%;
-    --input: 32 14% 86%;
-    --ring: 35 92% 48%;
+    color-scheme: dark;
+    --background: 240 14% 3%;
+    --foreground: 255 40% 97%;
+    --card: 252 24% 9%;
+    --card-foreground: 255 40% 97%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 250 30% 6%;
+    --secondary: 250 14% 14%;
+    --secondary-foreground: 255 40% 97%;
+    --muted: 250 14% 14%;
+    --muted-foreground: 250 9% 67%;
+    --accent: 254 100% 77%;
+    --accent-foreground: 250 30% 6%;
+    --ring: 254 100% 77%;
     --radius: 0.75rem;
-    --grid-line: 28 12% 88%;
   }
-
-  .dark {
-    /* Ink — near-black warm charcoal */
-    --background: 24 8% 6%;
-    --foreground: 40 18% 92%;
-    --card: 24 8% 9%;
-    --card-foreground: 40 18% 92%;
-    --primary: 40 18% 92%;
-    --primary-foreground: 24 8% 6%;
-    --secondary: 26 7% 14%;
-    --secondary-foreground: 40 18% 90%;
-    --muted: 26 7% 13%;
-    --muted-foreground: 33 8% 60%;
-    --accent: 38 96% 56%;
-    --accent-foreground: 24 8% 6%;
-    --border: 30 7% 17%;
-    --input: 30 7% 20%;
-    --ring: 38 96% 56%;
-    --grid-line: 30 8% 14%;
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
     -webkit-font-smoothing: antialiased;
-    font-optical-sizing: auto;
+    background: hsl(var(--background));
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "cv05", "ss03";
     letter-spacing: -0.011em;
   }
-  h1, h2, h3, h4 {
+  h1, h2, h3 {
     text-wrap: balance;
   }
-  .font-display {
-    letter-spacing: -0.02em;
-  }
   ::selection {
-    background: hsl(var(--accent) / 0.22);
+    background: hsl(var(--accent) / 0.3);
+  }
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
   }
 }
 
-@layer utilities {
-  /* Faint ruled-grid backdrop */
-  /* Sightglass's brand accent — Tanzanite, matched to the app's scheme of the
-     same name. Two values because one lightness cannot serve both grounds:
-     the dark-mode value sits near 3:1 on white, too low for the small
-     numerals and labels this drives. */
-  .theme-sightglass {
-    --accent: 252 74% 50%;
-    --ring: 252 74% 50%;
+@layer components {
+  .heading-xl {
+    font-family: "Sora Variable", sans-serif;
+    font-size: min(8.2vw, 5.5rem);
+    font-weight: 250;
+    line-height: 1.05;
+    letter-spacing: -0.045em;
   }
-  .dark .theme-sightglass {
-    --accent: 252 88% 72%;
-    --ring: 252 88% 72%;
+  .heading-lg {
+    font-family: "Sora Variable", sans-serif;
+    font-size: clamp(1.9rem, 3.7vw, 3.4rem);
+    font-weight: 250;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
   }
-
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, hsl(var(--grid-line) / 0.6) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--grid-line) / 0.6) 1px, transparent 1px);
-    background-size: 64px 64px;
+  .section {
+    @apply scroll-mt-20 py-24 sm:py-36;
   }
-  .text-accent {
-    color: hsl(var(--accent));
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-[#0a0912];
+    box-shadow: 0 0 44px hsl(254 100% 70% / 0.42);
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease;
   }
-  .accent-underline {
-    background-image: linear-gradient(hsl(var(--accent)), hsl(var(--accent)));
-    background-size: 100% 1.5px;
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    transition: background-size 0.3s ease;
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 60px hsl(254 100% 70% / 0.62);
   }
-  .accent-underline:hover {
-    background-size: 0% 1.5px;
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-full bg-white/[0.1] px-7 py-3.5 text-[15px] font-medium transition-colors hover:bg-white/[0.16];
   }
-  /* Radial mask for ambient glows */
-  .mask-radial {
-    -webkit-mask-image: radial-gradient(closest-side, black, transparent);
-    mask-image: radial-gradient(closest-side, black, transparent);
+  .tile {
+    @apply rounded-[14px] bg-white/[0.05] p-3.5;
   }
-  /* Serif display — matches the app's premium (New York) headline face. */
-  .font-serif {
-    font-family: "New York", ui-serif, Georgia, "Times New Roman", serif;
-    letter-spacing: -0.015em;
-  }
-  /* Frosted glass surface — mirrors the app's glassmorphism skins. */
-  .glass {
-    background-color: hsl(var(--card) / 0.6);
-    -webkit-backdrop-filter: blur(18px) saturate(1.35);
-    backdrop-filter: blur(18px) saturate(1.35);
-    border: 1px solid hsl(var(--border) / 0.7);
-  }
-  /* Premium layered shadow + accent halo. */
-  .premium-shadow {
-    box-shadow:
-      0 1px 2px 0 hsl(24 10% 6% / 0.06),
-      0 30px 60px -32px hsl(var(--accent) / 0.35);
-  }
-  .accent-glow {
-    box-shadow: 0 0 0 1px hsl(var(--accent) / 0.18), 0 24px 70px -34px hsl(var(--accent) / 0.6);
-  }
-  /* Stripe-style gradient accents for the premium light site. */
-  .text-gradient {
-    background-image: linear-gradient(
-      100deg,
-      hsl(252 84% 56%),
-      hsl(280 82% 60%),
-      hsl(212 90% 52%)
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .gradient-mesh {
-    background-image:
-      radial-gradient(58% 55% at 16% 8%, hsl(252 92% 72% / 0.22), transparent 62%),
-      radial-gradient(46% 48% at 88% 16%, hsl(210 96% 66% / 0.18), transparent 60%),
-      radial-gradient(54% 54% at 64% 98%, hsl(286 86% 72% / 0.16), transparent 60%);
-  }
-  .bg-brand-gradient {
-    background-image: linear-gradient(
-      120deg,
-      hsl(252 82% 56%),
-      hsl(268 80% 56%),
-      hsl(212 88% 52%)
-    );
-  }
-  .card-hover {
-    transition:
-      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.3s ease,
-      border-color 0.3s ease;
-  }
-  .card-hover:hover {
-    transform: translateY(-4px);
-  }
-  /* Barely-there film grain for a printed, luxe texture. */
-  .grain::before {
-    content: "";
+  .closing-glow {
     position: absolute;
-    inset: 0;
-    z-index: 0;
     pointer-events: none;
-    opacity: 0.02;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    inset: 0;
+    background:
+      radial-gradient(38% 60% at 22% 108%, hsl(336 95% 62% / 0.34), transparent),
+      radial-gradient(38% 60% at 78% 108%, hsl(188 92% 52% / 0.28), transparent),
+      radial-gradient(52% 74% at 50% 114%, hsl(254 100% 65% / 0.55), transparent);
+  }
+}
+
+/* One colour per chapter. Written outside @layer so Tailwind keeps the classes
+   that are built from data at runtime. */
+:root,
+.tone-violet {
+  --tone: 254 100% 77%;
+  --tone-2: 288 92% 74%;
+}
+.tone-amber {
+  --tone: 38 98% 62%;
+  --tone-2: 14 96% 66%;
+}
+.tone-cyan {
+  --tone: 188 92% 58%;
+  --tone-2: 216 96% 70%;
+}
+.tone-pink {
+  --tone: 336 95% 72%;
+  --tone-2: 18 96% 68%;
+}
+.tone-green {
+  --tone: 154 72% 56%;
+  --tone-2: 186 84% 58%;
+}
+.text-tone {
+  color: hsl(var(--tone));
+}
+.text-grad {
+  background: linear-gradient(95deg, hsl(var(--tone)), hsl(var(--tone-2)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.grad-tone {
+  background: linear-gradient(95deg, hsl(var(--tone)), hsl(var(--tone-2)));
+}
+.grad-tone-v {
+  background: linear-gradient(180deg, hsl(var(--tone)), hsl(var(--tone-2) / 0.35));
+}
+.icon-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.875rem;
+  color: hsl(var(--tone));
+  background: linear-gradient(145deg, hsl(var(--tone) / 0.24), hsl(var(--tone-2) / 0.07));
+  box-shadow: 0 8px 30px -10px hsl(var(--tone) / 0.6);
+}
+.point-icon {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 0.5rem;
+  color: hsl(var(--tone));
+  background: hsl(var(--tone) / 0.13);
+}
+.soon-pill {
+  border-radius: 999px;
+  padding: 0.25rem 0.625rem;
+  font-size: 11px;
+  font-weight: 500;
+  color: hsl(var(--tone));
+  background: hsl(var(--tone) / 0.1);
+}
+.source-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.5rem 0.875rem;
+  font-size: 13px;
+  color: hsl(var(--foreground) / 0.85);
+  background: rgb(255 255 255 / 0.055);
+  transition: background-color 0.2s ease;
+}
+.source-chip:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+.status {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 0.125rem 0.5rem;
+  font-weight: 500;
+}
+.status-good {
+  color: hsl(154 72% 62%);
+  background: hsl(154 72% 56% / 0.13);
+}
+.status-warn {
+  color: hsl(38 98% 66%);
+  background: hsl(38 98% 62% / 0.13);
+}
+.status-info {
+  color: hsl(188 92% 64%);
+  background: hsl(188 92% 58% / 0.13);
+}
+
+/* Faint dot matrix across the whole page. One static fixed layer. */
+.site-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgb(255 255 255 / 0.09) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(90% 75% at 50% 45%, #000, transparent);
+  mask-image: radial-gradient(90% 75% at 50% 45%, #000, transparent);
+}
+.text-metal {
+  background: linear-gradient(180deg, #fff 18%, #cfc6ff 72%, #9c8cff 108%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.08em;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: hsl(var(--foreground) / 0.78);
+  background: rgb(255 255 255 / 0.04);
+}
+.hero-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #35dcf2;
+  box-shadow: 0 0 10px #35dcf2;
+}
+.hero-aura {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 52% at 50% 78%, rgb(112 76 255 / 0.5), transparent),
+    radial-gradient(36% 46% at 6% 72%, rgb(255 80 150 / 0.26), transparent),
+    radial-gradient(36% 46% at 94% 72%, rgb(40 210 240 / 0.22), transparent);
+}
+.planet {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.planet-glow-wide {
+  filter: blur(46px);
+  opacity: 0.62;
+}
+.planet-glow-near {
+  filter: blur(9px);
+  opacity: 0.85;
+}
+
+/* Cards: no outlines. A soft fill, and a light that follows the pointer. */
+.glass-card {
+  position: relative;
+  border-radius: 20px;
+  background: linear-gradient(155deg, hsl(250 24% 14% / 0.92), hsl(246 22% 8% / 0.94));
+  box-shadow: 0 34px 90px -46px hsl(var(--tone) / 0.6);
+}
+.glass-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), hsl(var(--tone) / 0.17), transparent 68%);
+  transition: opacity 0.25s ease;
+}
+.glass-card:hover::after {
+  opacity: 1;
+}
+
+/* Section light sits outside the scroll animation, so it never fades with it. */
+.chapter-glow {
+  --gx: 74%;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(40% 58% at var(--gx) 50%, hsl(var(--tone) / 0.17), hsl(var(--tone-2) / 0.05) 60%, transparent);
+}
+.chapter-glow-l {
+  --gx: 26%;
+}
+.chapter-glow-c {
+  --gx: 50%;
+}
+.nav-fade {
+  background: linear-gradient(180deg, hsl(var(--background) / 0.92), hsl(var(--background) / 0.55) 62%, transparent);
+}
+@media (max-width: 1023px) {
+  .chapter-glow,
+  .chapter-glow-l {
+    --gx: 50%;
+  }
+}
+
+/* Transform only: the headline and download button are never hidden, even if
+   the animation is delayed or the tab is in the background. */
+.hero-rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(10px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }
